@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For You, My Love</title>
+<style>
+:root{--bg:#fff5f7;--bg2:#ffe3ea;--card:rgba(255,255,255,.8);--ink:#3a2a2e;--soft:#8a6a72;--accent:#e0577a;--accent2:#b83a8a;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1216;--bg2:#2c1622;--card:rgba(50,28,38,.8);--ink:#f6e8ec;--soft:#c9a3ae;--accent:#ff7a9c;--accent2:#d67adf}}
+:root[data-theme="dark"]{--bg:#1c1216;--bg2:#2c1622;--card:rgba(50,28,38,.8);--ink:#f6e8ec;--soft:#c9a3ae;--accent:#ff7a9c;--accent2:#d67adf}
+html{scroll-behavior:smooth;scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.75;overflow-x:hidden}
+#hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.fh{position:absolute;bottom:-40px;opacity:0;animation:rise linear forwards}
+@keyframes rise{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.7}100%{transform:translateY(-110vh) translateX(var(--dx)) rotate(var(--r));opacity:0}}
+nav{position:fixed;top:0;left:0;right:0;z-index:10;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap;background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 2px 16px rgba(224,87,122,.15)}
+nav a{color:var(--ink);text-decoration:none;font-size:.9rem;padding:6px 12px;border-radius:999px;transition:background .3s,color .3s}
+nav a:hover{background:var(--accent);color:#fff}
+section{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:90px 22px 30px}
+#home{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--bg),var(--bg2),var(--bg));max-width:none}
+.heart{font-size:78px;display:inline-block;animation:beat 1.4s ease-in-out infinite;filter:drop-shadow(0 8px 16px rgba(224,87,122,.45))}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.2)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+h1{font-size:clamp(2.2rem,8vw,3.8rem);margin:14px 0 6px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--soft);font-style:italic;font-size:1.1rem;min-height:1.8em}
+.cur{display:inline-block;width:2px;background:var(--soft);margin-left:2px;animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.cta{display:inline-block;margin-top:26px;background:linear-gradient(135deg,#ff7a9c,#e0577a);color:#fff;text-decoration:none;border:0;border-radius:999px;padding:14px 32px;font-size:1.05rem;font-family:inherit;cursor:pointer;box-shadow:0 8px 24px rgba(224,87,122,.4);transition:transform .3s}
+.cta:hover{transform:scale(1.07)}
+h2{font-size:1.9rem;text-align:center;margin:0 0 6px;color:var(--accent)}
+.line{width:70px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));margin:0 auto 28px;border-radius:3px}
+.rv{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.8,.2,1)}
+.rv.show{opacity:1;transform:none}
+.card{background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:22px;padding:24px;box-shadow:0 8px 30px rgba(224,87,122,.16)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.grid .card{transition:transform .4s,box-shadow .4s;text-align:center}
+.grid .card:hover{transform:translateY(-6px);box-shadow:0 14px 36px rgba(224,87,122,.3)}
+.grid .ic{font-size:34px}
+.grid h3{margin:6px 0;color:var(--accent);font-size:1.1rem}
+.grid p{margin:0;font-size:.95rem}
+.letter{font-size:1.05rem}
+.letter p{margin:0 0 14px}
+.sig{text-align:right;color:var(--accent);font-style:italic}
+.promise{list-style:none;padding:0;margin:0}
+.promise li{background:var(--card);border-radius:16px;padding:16px 18px 16px 52px;margin-bottom:12px;position:relative;box-shadow:0 4px 18px rgba(224,87,122,.12)}
+.promise li:before{content:"💗";position:absolute;left:16px;top:14px;font-size:22px}
+#forgive{text-align:center}
+#reply{opacity:0;max-height:0;overflow:hidden;font-size:1.25rem;color:var(--accent);transition:opacity 1.2s,max-height 1s}
+#reply.show{opacity:1;max-height:240px;margin-top:22px}
+footer{position:relative;z-index:1;text-align:center;color:var(--soft);padding:50px 20px 40px;font-size:.95rem}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="hearts"></div>
+<nav>
+  <a href="#home">Home</a><a href="#love">Why I Love You</a><a href="#sorry">My Apology</a><a href="#promises">Promises</a><a href="#letter">Letter</a><a href="#forgive">Forgive Me</a>
+</nav>
+
+<section id="home">
+  <div class="heart">❤️</div>
+  <h1>My Love</h1>
+  <div class="sub"><span id="type"></span><span class="cur">&nbsp;</span></div>
+  <a class="cta" href="#love">Come in 💌</a>
+</section>
+
+<section id="love">
+  <h2 class="rv">Why I Love You</h2><div class="line"></div>
+  <div class="grid">
+    <div class="card rv"><div class="ic">😊</div><h3>Your Smile</h3><p>It lights up my worst days and makes everything feel okay.</p></div>
+    <div class="card rv"><div class="ic">🤍</div><h3>Your Heart</h3><p>You care so deeply, and you make me want to be a better person.</p></div>
+    <div class="card rv"><div class="ic">🫂</div><h3>Your Understanding</h3><p>Nobody understands me the way you do, and I'm so grateful.</p></div>
+    <div class="card rv"><div class="ic">🌙</div><h3>You, Just You</h3><p>More than my work, more than my plans, you are my whole world.</p></div>
+  </div>
+</section>
+
+<section id="sorry">
+  <h2 class="rv">My Apology</h2><div class="line"></div>
+  <div class="card rv letter">
+    <p>I know I made you angry, and I know I hurt you. I'm truly sorry. I'm not here to make excuses. You have every right to feel the way you feel.</p>
+    <p>I'm always there for you, and I always will be. I want to understand how you feel, and I want to make it right.</p>
+  </div>
+</section>
+
+<section id="promises">
+  <h2 class="rv">My Promises</h2><div class="line"></div>
+  <ul class="promise">
+    <li class="rv">I will listen to you properly, without interrupting.</li>
+    <li class="rv">I will make time for you, no matter how busy I am.</li>
+    <li class="rv">I will be honest with you, always.</li>
+    <li class="rv">I will try to understand your feelings before defending myself.</li>
+    <li class="rv">I will love you every single day, in words and in actions.</li>
+  </ul>
+</section>
+
+<section id="letter">
+  <h2 class="rv">A Letter For You</h2><div class="line"></div>
+  <div class="card rv letter">
+    <p>My love,</p>
+    <p>You are my closest person, and these days without your warmth feel empty. I miss the way we used to be, the laughing, the talking, the comfort of just being together.</p>
+    <p>I'm begging you, from the bottom of my heart, let's find our way back to that. Be the same as before, the person I fell in love with, and I promise to try harder every day to deserve you.</p>
+    <p>I love you more than anything in this world.</p>
+    <p class="sig">Forever yours ❤️</p>
+  </div>
+</section>
+
+<section id="forgive">
+  <h2 class="rv">Will You Forgive Me?</h2><div class="line"></div>
+  <button class="cta" id="btn">Yes, I forgive you 🥺💖</button>
+  <div id="reply">Thank you, my love. I promise to make you smile again. ❤️</div>
+</section>
+
+<footer>Made with all my love, only for you. 💕</footer>
+
+<script>
+var em=['❤️','💖','💕','💗','🌸'];
+function spawn(n,b){var box=document.getElementById('hearts');for(var i=0;i<n;i++){var s=document.createElement('span');s.className='fh';s.textContent=em[Math.floor(Math.random()*em.length)];s.style.left=Math.random()*100+'%';s.style.fontSize=(14+Math.random()*26)+'px';s.style.setProperty('--dx',(Math.random()*120-60)+'px');s.style.setProperty('--r',(Math.random()*80-40)+'deg');s.style.animationDuration=(b?4+Math.random()*3:7+Math.random()*7)+'s';if(b)s.style.animationDelay=Math.random()*.8+'s';box.appendChild(s);(function(e){setTimeout(function(){e.remove()},16000)})(s)}}
+setInterval(function(){spawn(1,false)},900);spawn(6,false);
+var tx="I made this for you, because words felt too small.",i=0,t=document.getElementById('type');
+function ty(){if(i<=tx.length){t.textContent=tx.slice(0,i++);setTimeout(ty,55)}}setTimeout(ty,700);
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll('.rv').forEach(function(c){io.observe(c)});
+document.getElementById('btn').addEventListener('click',function(){spawn(50,true);document.getElementById('reply').classList.add('show');var b=this;b.style.transition='opacity .6s';b.style.opacity=0;setTimeout(function(){b.style.display='none'},600)});
+</script>
+</body>
+</html>
